@@ -1,0 +1,88 @@
+# Image Validation Rubric v1
+# Evaluates a generated image against its prompt AND story context
+# Used by: pipeline/validators/image.py
+version: 1
+
+criteria:
+  - id: IM01
+    name: correct_subject
+    description: "The main subject matches what was requested. If prompt asks for a man, image shows a man. If prompt asks for a cat, image shows a cat. Wrong subject = automatic FAIL."
+    weight: critical
+
+  - id: IM02
+    name: correct_setting
+    description: "The environment/setting matches the prompt. Subway should look like subway, rooftop should look like rooftop."
+    weight: critical
+
+  - id: IM03
+    name: required_objects_present
+    description: "Key objects mentioned in the prompt are visible in the image (guitar, amplifier, etc.)"
+    weight: important
+
+  - id: IM04
+    name: composition_matches
+    description: "Camera angle, framing, and shot type roughly match what was requested"
+    weight: important
+
+  - id: IM05
+    name: scene_intent
+    description: "The image serves the scene's narrative purpose. It looks like a plausible opening frame for the described video action."
+    weight: important
+
+  - id: IM06
+    name: story_continuity
+    description: "The image is consistent with the story's world — same character appearance, same location feel across scenes"
+    weight: important
+
+  - id: IM07
+    name: visually_readable
+    description: "The image is clear and readable at phone screen size for vertical short-form video. Not cluttered, not confusing."
+    weight: important
+
+  - id: IM08
+    name: strong_opening_frame
+    description: "This image would work as the first frame of a 3-5 second video clip. It has visual interest and sets up the action."
+    weight: desirable
+
+prompt_template: |
+  You are evaluating a generated image for a scene in a short video story.
+
+  SCENE CONTEXT:
+  Title: {title}
+  Scene {scene_num} of {total_scenes}: {scene_title}
+  Scene purpose: This image is the opening frame for a 3-5 second video clip.
+
+  IMAGE PROMPT (what was requested):
+  {image_prompt}
+
+  RUBRIC — evaluate each criterion by looking at the actual image:
+  {rubric_text}
+
+  CRITICAL RULE: If the image shows a completely different subject than requested
+  (e.g., prompt asks for a man but image shows a woman, or prompt asks for a cat
+  but image shows a person), that is an automatic FAIL with score below 20.
+  Do NOT rationalize or find creative interpretations.
+
+  For each criterion, answer: PASS or FAIL with what you actually see.
+  Then give an overall state:
+  - PASS: image is usable for this scene (all critical criteria pass)
+  - FAIL: image has major problems (any critical criterion fails)
+  Score 0-100 for relative quality ranking.
+  Rate your confidence 0.0-1.0.
+
+  Output JSON:
+  {{
+    "state": "PASS or FAIL",
+    "matches_prompt": true/false,
+    "characters_present": true/false,
+    "objects_present": true/false,
+    "setting_correct": true/false,
+    "matches_scene_intent": true/false,
+    "matches_story": true/false,
+    "composition_acceptable": true/false,
+    "visually_readable": true/false,
+    "strong_opening_frame": true/false,
+    "score": 75,
+    "findings": ["list of specific observations about the image"],
+    "confidence": 0.85
+  }}

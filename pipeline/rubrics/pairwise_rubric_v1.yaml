@@ -1,0 +1,59 @@
+# Pairwise Comparison Rubric v1
+# Compares baseline image vs challenger image for the same scene
+# Used by: pipeline/validators/pairwise.py
+version: 1
+
+criteria:
+  - id: PW01
+    name: prompt_adherence
+    description: "Which image more faithfully represents the image prompt?"
+
+  - id: PW02
+    name: scene_intent
+    description: "Which image better serves the scene's narrative purpose as an opening frame?"
+
+  - id: PW03
+    name: story_continuity
+    description: "Which image is more consistent with the overall story world?"
+
+  - id: PW04
+    name: visual_readability
+    description: "Which image is clearer, more readable at phone screen size for short-form video?"
+
+prompt_template: |
+  You are comparing two generated images for the SAME scene in a short video story.
+  Your job is to decide which image is better for this scene.
+
+  SCENE CONTEXT:
+  Title: {title}
+  Scene {scene_num} of {total_scenes}: {scene_title}
+
+  IMAGE PROMPT (what both images were trying to generate):
+  {image_prompt}
+
+  You are seeing TWO images:
+  - Image A (BASELINE): the current accepted version
+  - Image B (CHALLENGER): a new attempt
+
+  For each criterion, answer which is better: A (BASELINE), B (CHALLENGER), or TIE.
+  Then give an overall winner.
+
+  RULES:
+  - Judge literally. Does the image match the prompt?
+  - If both are equally good or equally bad, say TIE.
+  - TIE means the baseline is kept (incumbent advantage).
+  - If one image shows completely wrong content (wrong subject, wrong setting),
+    the other wins automatically regardless of other criteria.
+
+  Rate your confidence 0.0-1.0.
+
+  Output JSON:
+  {{
+    "winner": "BASELINE or CHALLENGER or TIE",
+    "prompt_adherence": "BASELINE or CHALLENGER or TIE",
+    "scene_intent": "BASELINE or CHALLENGER or TIE",
+    "story_continuity": "BASELINE or CHALLENGER or TIE",
+    "visual_readability": "BASELINE or CHALLENGER or TIE",
+    "reason": "one sentence explaining the decision",
+    "confidence": 0.85
+  }}

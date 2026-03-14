@@ -1,0 +1,363 @@
+{
+  "description": "Scene validator benchmark — 25 cases (10 good, 10 bad, 5 ambiguous)",
+  "rubric_version": 1,
+  "cases": [
+    {
+      "id": "good_01",
+      "label": "PASS",
+      "title": "The Street Cat",
+      "summary": "A musician plays guitar while a stray cat harmonizes on his amp",
+      "scenes": [
+        {"num": 1, "title": "Establishing Shot", "duration": 3},
+        {"num": 2, "title": "Cat Approaches", "duration": 3},
+        {"num": 3, "title": "The Duet", "duration": 3},
+        {"num": 4, "title": "Smile of Recognition", "duration": 3},
+        {"num": 5, "title": "The Bow", "duration": 3}
+      ],
+      "reason": "Clear hook (scene 1-2), payoff (scene 5), understandable silently, good pacing"
+    },
+    {
+      "id": "good_02",
+      "label": "PASS",
+      "title": "The Returning Book",
+      "summary": "A bookshop owner discovers a sold book keeps reappearing on the shelf",
+      "scenes": [
+        {"num": 1, "title": "Empty Slot", "duration": 3},
+        {"num": 2, "title": "Selling the Book", "duration": 3},
+        {"num": 3, "title": "Book Returns", "duration": 3},
+        {"num": 4, "title": "Owner Confused", "duration": 3},
+        {"num": 5, "title": "Book Returns Again", "duration": 3},
+        {"num": 6, "title": "Owner Smiles", "duration": 3}
+      ],
+      "reason": "Strong hook (mysterious empty slot), escalation, clear payoff (acceptance/smile)"
+    },
+    {
+      "id": "good_03",
+      "label": "PASS",
+      "title": "The Paper Crane",
+      "summary": "A child folds a paper crane that catches the wind and lands on a lonely man's bench",
+      "scenes": [
+        {"num": 1, "title": "Child Folding", "duration": 3},
+        {"num": 2, "title": "Crane Takes Flight", "duration": 3},
+        {"num": 3, "title": "Wind Carries It", "duration": 4},
+        {"num": 4, "title": "Lonely Man on Bench", "duration": 3},
+        {"num": 5, "title": "Crane Lands", "duration": 3},
+        {"num": 6, "title": "Man Picks It Up", "duration": 3}
+      ],
+      "reason": "Visual journey, no dialogue needed, hook (folding), payoff (connection)"
+    },
+    {
+      "id": "good_04",
+      "label": "PASS",
+      "title": "The Baker's Mistake",
+      "summary": "A baker accidentally creates a lopsided cake that becomes the most popular item",
+      "scenes": [
+        {"num": 1, "title": "Mixing Batter", "duration": 3},
+        {"num": 2, "title": "The Accident", "duration": 3},
+        {"num": 3, "title": "Lopsided Result", "duration": 3},
+        {"num": 4, "title": "Customer Reaction", "duration": 3},
+        {"num": 5, "title": "Line Out the Door", "duration": 4}
+      ],
+      "reason": "Comedy arc, visual punchline, clear without audio"
+    },
+    {
+      "id": "good_05",
+      "label": "PASS",
+      "title": "The Shadow Match",
+      "summary": "Two strangers realize their shadows are holding hands on the wall",
+      "scenes": [
+        {"num": 1, "title": "Walking Separately", "duration": 3},
+        {"num": 2, "title": "Shadows Overlap", "duration": 3},
+        {"num": 3, "title": "Shadow Hands Touch", "duration": 3},
+        {"num": 4, "title": "Both Notice", "duration": 3},
+        {"num": 5, "title": "They Smile", "duration": 3}
+      ],
+      "reason": "Visual hook (shadows), surprise, payoff (connection)"
+    },
+    {
+      "id": "good_06",
+      "label": "PASS",
+      "title": "The Raindrop Race",
+      "summary": "A child watches two raindrops race down a window, cheering for one",
+      "scenes": [
+        {"num": 1, "title": "Child at Window", "duration": 3},
+        {"num": 2, "title": "Two Drops Start", "duration": 3},
+        {"num": 3, "title": "The Race", "duration": 4},
+        {"num": 4, "title": "Child Cheers", "duration": 3},
+        {"num": 5, "title": "Drop Wins", "duration": 3}
+      ],
+      "reason": "Simple, universal, visual, no audio needed"
+    },
+    {
+      "id": "good_07",
+      "label": "PASS",
+      "title": "The Lost Key",
+      "summary": "A woman finds a key on a park bench and discovers it opens a nearby music box",
+      "scenes": [
+        {"num": 1, "title": "Finding the Key", "duration": 3},
+        {"num": 2, "title": "Looking Around", "duration": 3},
+        {"num": 3, "title": "Spotting the Box", "duration": 3},
+        {"num": 4, "title": "Key Fits", "duration": 3},
+        {"num": 5, "title": "Music Box Opens", "duration": 4}
+      ],
+      "reason": "Mystery hook, discovery arc, satisfying payoff"
+    },
+    {
+      "id": "good_08",
+      "label": "PASS",
+      "title": "The Sleeping Dog",
+      "summary": "A dog's legs twitch in sleep, dreaming of chasing a squirrel seen earlier",
+      "scenes": [
+        {"num": 1, "title": "Dog Spots Squirrel", "duration": 3},
+        {"num": 2, "title": "Owner Holds Leash", "duration": 3},
+        {"num": 3, "title": "Dog Falls Asleep", "duration": 3},
+        {"num": 4, "title": "Legs Start Twitching", "duration": 3},
+        {"num": 5, "title": "Big Twitch", "duration": 3}
+      ],
+      "reason": "Relatable, visual comedy, clear callback"
+    },
+    {
+      "id": "good_09",
+      "label": "PASS",
+      "title": "The Flower Pot",
+      "summary": "A wilting flower straightens up when a child sings to it",
+      "scenes": [
+        {"num": 1, "title": "Wilting Flower", "duration": 3},
+        {"num": 2, "title": "Child Approaches", "duration": 3},
+        {"num": 3, "title": "Child Sings", "duration": 3},
+        {"num": 4, "title": "Flower Lifts", "duration": 3},
+        {"num": 5, "title": "Full Bloom", "duration": 4}
+      ],
+      "reason": "Magical realism, visual transformation, heartwarming payoff"
+    },
+    {
+      "id": "good_10",
+      "label": "PASS",
+      "title": "The Mirror Wave",
+      "summary": "A man waves at himself in a store window and his reflection waves back late",
+      "scenes": [
+        {"num": 1, "title": "Walking Past Window", "duration": 3},
+        {"num": 2, "title": "Quick Wave", "duration": 3},
+        {"num": 3, "title": "Walks Away", "duration": 3},
+        {"num": 4, "title": "Reflection Waves", "duration": 3},
+        {"num": 5, "title": "Man Does Double Take", "duration": 4}
+      ],
+      "reason": "Surprise twist, visual-only humor, strong hook"
+    },
+
+    {
+      "id": "bad_01",
+      "label": "FAIL",
+      "title": "The Complex Journey",
+      "summary": "A woman travels across three countries to find her grandmother's recipe",
+      "scenes": [
+        {"num": 1, "title": "Airport", "duration": 3},
+        {"num": 2, "title": "Paris Cafe", "duration": 3},
+        {"num": 3, "title": "Tokyo Market", "duration": 3},
+        {"num": 4, "title": "Mumbai Kitchen", "duration": 3},
+        {"num": 5, "title": "Reading Recipe", "duration": 3},
+        {"num": 6, "title": "Cooking", "duration": 3},
+        {"num": 7, "title": "Tasting", "duration": 3},
+        {"num": 8, "title": "Crying", "duration": 3}
+      ],
+      "reason": "Too many locations for 24s, confusing without context, needs narration to follow"
+    },
+    {
+      "id": "bad_02",
+      "label": "FAIL",
+      "title": "The Conversation",
+      "summary": "Two friends discuss their relationship problems over coffee",
+      "scenes": [
+        {"num": 1, "title": "Sitting Down", "duration": 3},
+        {"num": 2, "title": "Talking", "duration": 3},
+        {"num": 3, "title": "More Talking", "duration": 3},
+        {"num": 4, "title": "Nodding", "duration": 3},
+        {"num": 5, "title": "Hugging", "duration": 3}
+      ],
+      "reason": "Entirely dialogue-dependent, no visual story, redundant talking scenes"
+    },
+    {
+      "id": "bad_03",
+      "label": "FAIL",
+      "title": "The One Scene",
+      "summary": "A sunset over the ocean",
+      "scenes": [
+        {"num": 1, "title": "Sunset", "duration": 15}
+      ],
+      "reason": "Only 1 scene, no narrative, no hook, no payoff"
+    },
+    {
+      "id": "bad_04",
+      "label": "FAIL",
+      "title": "The Repetition",
+      "summary": "A man opens doors",
+      "scenes": [
+        {"num": 1, "title": "Opens Door 1", "duration": 3},
+        {"num": 2, "title": "Opens Door 2", "duration": 3},
+        {"num": 3, "title": "Opens Door 3", "duration": 3},
+        {"num": 4, "title": "Opens Door 4", "duration": 3},
+        {"num": 5, "title": "Opens Door 5", "duration": 3}
+      ],
+      "reason": "All scenes are identical beat, no progression, no payoff"
+    },
+    {
+      "id": "bad_05",
+      "label": "FAIL",
+      "title": "The Lecture",
+      "summary": "A professor explains quantum physics on a whiteboard",
+      "scenes": [
+        {"num": 1, "title": "Writing Equations", "duration": 4},
+        {"num": 2, "title": "More Equations", "duration": 4},
+        {"num": 3, "title": "Pointing at Board", "duration": 4},
+        {"num": 4, "title": "Nodding", "duration": 4},
+        {"num": 5, "title": "Erasing Board", "duration": 4}
+      ],
+      "reason": "Not understandable without audio, no visual story, too long at 20s for repetitive content"
+    },
+    {
+      "id": "bad_06",
+      "label": "FAIL",
+      "title": "The Abstract",
+      "summary": "A meditation on the meaning of time through symbolic imagery",
+      "scenes": [
+        {"num": 1, "title": "Clock Melting", "duration": 3},
+        {"num": 2, "title": "Hourglass Breaking", "duration": 3},
+        {"num": 3, "title": "Calendar Pages", "duration": 3},
+        {"num": 4, "title": "Sundial Shadow", "duration": 3},
+        {"num": 5, "title": "Digital Counter", "duration": 3}
+      ],
+      "reason": "Too abstract, no character, no narrative arc, no hook/payoff"
+    },
+    {
+      "id": "bad_07",
+      "label": "FAIL",
+      "title": "No Payoff Story",
+      "summary": "A cat walks across a room",
+      "scenes": [
+        {"num": 1, "title": "Cat Enters", "duration": 3},
+        {"num": 2, "title": "Cat Walks", "duration": 3},
+        {"num": 3, "title": "Cat Continues Walking", "duration": 3},
+        {"num": 4, "title": "Cat Reaches Other Side", "duration": 3},
+        {"num": 5, "title": "Cat Sits Down", "duration": 3}
+      ],
+      "reason": "No hook, no tension, no payoff, just linear motion"
+    },
+    {
+      "id": "bad_08",
+      "label": "FAIL",
+      "title": "The Marathon",
+      "summary": "A complete marathon from start to finish",
+      "scenes": [
+        {"num": 1, "title": "Starting Line", "duration": 2},
+        {"num": 2, "title": "Mile 5", "duration": 2},
+        {"num": 3, "title": "Mile 10", "duration": 2},
+        {"num": 4, "title": "Mile 15", "duration": 2},
+        {"num": 5, "title": "Mile 20", "duration": 2},
+        {"num": 6, "title": "Mile 25", "duration": 2},
+        {"num": 7, "title": "Finish Line", "duration": 2},
+        {"num": 8, "title": "Medal Ceremony", "duration": 2}
+      ],
+      "reason": "Too many scenes, too short each, pacing too fast, no emotional arc"
+    },
+    {
+      "id": "bad_09",
+      "label": "FAIL",
+      "title": "The Internal Monologue",
+      "summary": "A person thinks about their life choices while staring out a window",
+      "scenes": [
+        {"num": 1, "title": "Staring Out Window", "duration": 5},
+        {"num": 2, "title": "Still Staring", "duration": 5},
+        {"num": 3, "title": "Sighs", "duration": 5},
+        {"num": 4, "title": "Turns Away", "duration": 5},
+        {"num": 5, "title": "Sits Down", "duration": 5}
+      ],
+      "reason": "Requires narration, no visual progression, too slow, runtime 25s with no action"
+    },
+    {
+      "id": "bad_10",
+      "label": "FAIL",
+      "title": "The Confusing Cut",
+      "summary": "Random scenes that don't connect",
+      "scenes": [
+        {"num": 1, "title": "Man on Beach", "duration": 3},
+        {"num": 2, "title": "Cat in Kitchen", "duration": 3},
+        {"num": 3, "title": "Rain on Car", "duration": 3},
+        {"num": 4, "title": "Child in School", "duration": 3},
+        {"num": 5, "title": "Clock Tower", "duration": 3}
+      ],
+      "reason": "No narrative connection between scenes, confusing sequence"
+    },
+
+    {
+      "id": "ambig_01",
+      "label": "AMBIGUOUS",
+      "title": "The Loop",
+      "summary": "A person walks in a circle and ends up where they started",
+      "scenes": [
+        {"num": 1, "title": "Starting Point", "duration": 3},
+        {"num": 2, "title": "Walking Forward", "duration": 3},
+        {"num": 3, "title": "Turns Corner", "duration": 3},
+        {"num": 4, "title": "Another Corner", "duration": 3},
+        {"num": 5, "title": "Back at Start", "duration": 3}
+      ],
+      "reason": "Could be clever (loop reveal) or boring (just walking), depends on execution"
+    },
+    {
+      "id": "ambig_02",
+      "label": "AMBIGUOUS",
+      "title": "The Gift",
+      "summary": "Someone wraps a gift, gives it, and the recipient opens it",
+      "scenes": [
+        {"num": 1, "title": "Wrapping", "duration": 3},
+        {"num": 2, "title": "Walking to Door", "duration": 3},
+        {"num": 3, "title": "Handing Over", "duration": 3},
+        {"num": 4, "title": "Unwrapping", "duration": 3},
+        {"num": 5, "title": "Reaction", "duration": 3}
+      ],
+      "reason": "Technically complete arc but generic, hook depends on what's inside"
+    },
+    {
+      "id": "ambig_03",
+      "label": "AMBIGUOUS",
+      "title": "The Long Take",
+      "summary": "A timelapse of a flower blooming and wilting",
+      "scenes": [
+        {"num": 1, "title": "Bud", "duration": 3},
+        {"num": 2, "title": "Opening", "duration": 3},
+        {"num": 3, "title": "Full Bloom", "duration": 3},
+        {"num": 4, "title": "Petals Fall", "duration": 3},
+        {"num": 5, "title": "Empty Stem", "duration": 3}
+      ],
+      "reason": "Visually beautiful but no character, no hook beyond aesthetic. Could work as ASMR/art but not as story"
+    },
+    {
+      "id": "ambig_04",
+      "label": "AMBIGUOUS",
+      "title": "The Copy Cat",
+      "summary": "A cat copies everything its owner does",
+      "scenes": [
+        {"num": 1, "title": "Owner Stretches", "duration": 3},
+        {"num": 2, "title": "Cat Stretches", "duration": 3},
+        {"num": 3, "title": "Owner Yawns", "duration": 3},
+        {"num": 4, "title": "Cat Yawns", "duration": 3},
+        {"num": 5, "title": "Owner Looks at Cat", "duration": 3},
+        {"num": 6, "title": "Cat Looks Away", "duration": 3}
+      ],
+      "reason": "Cute comedy but scenes 1-4 are repetitive (same beat twice). Scene 6 is a payoff but weak"
+    },
+    {
+      "id": "ambig_05",
+      "label": "AMBIGUOUS",
+      "title": "The Umbrella",
+      "summary": "A person shares their umbrella with a stranger in the rain",
+      "scenes": [
+        {"num": 1, "title": "Rain Starts", "duration": 3},
+        {"num": 2, "title": "Person Opens Umbrella", "duration": 3},
+        {"num": 3, "title": "Stranger Gets Wet", "duration": 3},
+        {"num": 4, "title": "Sharing Umbrella", "duration": 3},
+        {"num": 5, "title": "Walking Together", "duration": 3}
+      ],
+      "reason": "Sweet but predictable. Hook is weak (rain is common), payoff is expected. Could pass if execution is charming"
+    }
+  ]
+}

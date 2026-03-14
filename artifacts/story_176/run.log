@@ -1,0 +1,200 @@
+17:53:14 [pipeline] ============================================================
+17:53:14 [pipeline]   VIDEO PIPELINE v3 — Story #176
+17:53:14 [pipeline]   Started: 2026-03-14 17:53:14
+17:53:14 [pipeline] ============================================================
+17:53:14 [pipeline.state] State: IDLE -> CONCEIVING
+17:53:14 [pipeline] Concept seed: a janitor at a museum discovers one painting changes every night after closing
+17:53:14 [pipeline.llm.local] Chat: qwen3.5:35b-a3b (2 messages)
+17:54:14 [pipeline.llm.local] Chat done: 60.3s, 5473 tokens, 91 tok/s
+17:54:14 [pipeline.story.creator] Concept selected: The Color Echo — A janitor in bright yellow gloves cleans an abstract grey canvas; as she wipes, the painting shifts from grey to vibrant yellow, perfectly matching her gloves.
+17:54:14 [pipeline] Concept: The Color Echo — A janitor in bright yellow gloves cleans an abstract grey canvas; as she wipes, the painting shifts from grey to vibrant yellow, perfectly matching her gloves.
+17:54:14 [pipeline.state] State: CONCEIVING -> WRITING
+17:54:14 [pipeline.llm.local] Chat: qwen3.5:35b-a3b (2 messages)
+17:54:42 [pipeline.llm.local] Chat done: 28.1s, 3184 tokens, 113 tok/s
+17:54:42 [pipeline.story.creator] Story written: stories/story-176-the-color-echo.md
+17:54:42 [pipeline] Story written: stories/story-176-the-color-echo.md
+17:54:42 [pipeline.state] State: WRITING -> GATING
+17:54:42 [pipeline.story.parser] Parsed: The Color Echo — 1 chars, 1 locs, 1 objs, 5 scenes
+17:54:42 [pipeline.story.gates] Gate check failed: 10 issues
+17:54:42 [pipeline.story.gates]   - Scene 1: No character DNA referenced in image prompt
+17:54:42 [pipeline.story.gates]   - Scene 1: No location DNA referenced in image prompt
+17:54:42 [pipeline.story.gates]   - Scene 2: No character DNA referenced in image prompt
+17:54:42 [pipeline.story.gates]   - Scene 2: No location DNA referenced in image prompt
+17:54:42 [pipeline.story.gates]   - Scene 3: No character DNA referenced in image prompt
+17:54:42 [pipeline.story.gates]   - Scene 3: No location DNA referenced in image prompt
+17:54:42 [pipeline.story.gates]   - Scene 4: No character DNA referenced in image prompt
+17:54:42 [pipeline.story.gates]   - Scene 4: No location DNA referenced in image prompt
+17:54:42 [pipeline.story.gates]   - Scene 5: No character DNA referenced in image prompt
+17:54:42 [pipeline.story.gates]   - Scene 5: No location DNA referenced in image prompt
+17:54:42 [pipeline] Gate failed (attempt 1), rewriting story...
+17:54:42 [pipeline.state] State: GATING -> WRITING
+17:54:42 [pipeline.llm.local] Chat: qwen3.5:35b-a3b (2 messages)
+17:55:41 [pipeline.llm.local] Chat done: 58.8s, 6720 tokens, 114 tok/s
+17:55:41 [pipeline.story.creator] Story written: stories/story-176-the-color-echo.md
+17:55:41 [pipeline.state] State: WRITING -> GATING
+17:55:41 [pipeline.story.parser] Parsed: The Color Echo — 1 chars, 1 locs, 1 objs, 5 scenes
+17:55:41 [pipeline.story.gates] Gate check failed: 5 issues
+17:55:41 [pipeline.story.gates]   - Scene 1: No character DNA referenced in image prompt
+17:55:41 [pipeline.story.gates]   - Scene 2: No character DNA referenced in image prompt
+17:55:41 [pipeline.story.gates]   - Scene 3: No character DNA referenced in image prompt
+17:55:41 [pipeline.story.gates]   - Scene 4: No character DNA referenced in image prompt
+17:55:41 [pipeline.story.gates]   - Scene 5: No character DNA referenced in image prompt
+17:55:41 [pipeline] Gate failed (attempt 2), rewriting story...
+17:55:41 [pipeline.state] State: GATING -> WRITING
+17:55:41 [pipeline.llm.local] Chat: qwen3.5:35b-a3b (2 messages)
+17:56:38 [pipeline.llm.local] Chat done: 57.0s, 6539 tokens, 115 tok/s
+17:56:38 [pipeline.story.creator] Story written: stories/story-176-the-color-echo.md
+17:56:38 [pipeline.state] State: WRITING -> GATING
+17:56:38 [pipeline.story.parser] Parsed: The Color Echo — 1 chars, 1 locs, 1 objs, 5 scenes
+17:56:38 [pipeline.story.gates] All gates passed
+17:56:38 [pipeline.state] State: GATING -> VALIDATING_SCENES
+17:56:38 [pipeline] Validating scene structure...
+17:56:38 [pipeline.llm.local] Chat: qwen3.5:35b-a3b (1 messages)
+17:57:14 [pipeline.llm.local] Chat done: 35.4s, 4080 tokens, 115 tok/s
+17:57:14 [pipeline.validators.scene] Scene validation: PASS (confidence=0.85, issues=0)
+17:57:14 [pipeline] Scene validation: PASS
+17:57:14 [pipeline.state] State: VALIDATING_SCENES -> VALIDATING_PROMPTS
+17:57:14 [pipeline] Validating image prompts...
+17:57:14 [pipeline.validators.prompt] Scene 1 prompt deterministic FAIL: ["Motion verbs in image prompt (belong in video prompt): ['jumps']"]
+17:57:14 [pipeline.validators.prompt] Scene 2 prompt deterministic FAIL: ["Motion verbs in image prompt (belong in video prompt): ['jumps']"]
+17:57:14 [pipeline.validators.prompt] Scene 3 prompt deterministic FAIL: ["Motion verbs in image prompt (belong in video prompt): ['jumps']"]
+17:57:14 [pipeline.validators.prompt] Scene 4 prompt deterministic FAIL: ["Motion verbs in image prompt (belong in video prompt): ['jumps']"]
+17:57:14 [pipeline.validators.prompt] Scene 5 prompt deterministic FAIL: ["Motion verbs in image prompt (belong in video prompt): ['jumps']"]
+17:57:14 [pipeline.validators.prompt] Prompt validation: 0 PASS, 5 FAIL, 0 ERROR/INCONCLUSIVE out of 5 scenes
+17:57:14 [pipeline] Rewriting 5 failing prompts...
+17:57:14 [pipeline] Scene 1: LLM rewriting prompt...
+17:57:14 [pipeline.image.rewriter] Scene 1: Score N/A — blind rewrite (not showing image to model)
+17:57:14 [pipeline.llm.local] Chat: qwen3-vl:30b-a3b (1 messages)
+17:57:27 [pipeline.llm.local] Chat done: 13.6s, 1024 tokens, 75 tok/s
+17:57:27 [pipeline.image.rewriter] Scene 1: Rewritten prompt: ...
+17:57:27 [pipeline] Scene 2: LLM rewriting prompt...
+17:57:27 [pipeline.image.rewriter] Scene 2: Score N/A — blind rewrite (not showing image to model)
+17:57:27 [pipeline.llm.local] Chat: qwen3-vl:30b-a3b (1 messages)
+17:57:31 [pipeline.llm.local] Chat done: 4.1s, 675 tokens, 164 tok/s
+17:57:31 [pipeline.image.rewriter] Scene 2: Rewritten prompt: Female artist, mid-40s, light skin, oval face, strong jawline, soft nose, full lips, almond eyes/hazel/long lashes, defined cheekbones, straight eyebr...
+17:57:31 [pipeline] Scene 3: LLM rewriting prompt...
+17:57:31 [pipeline.image.rewriter] Scene 3: Score N/A — blind rewrite (not showing image to model)
+17:57:31 [pipeline.llm.local] Chat: qwen3-vl:30b-a3b (1 messages)
+17:57:35 [pipeline.llm.local] Chat done: 3.6s, 583 tokens, 164 tok/s
+17:57:35 [pipeline.image.rewriter] Scene 3: Rewritten prompt: Subject: female, mid-40s, light skin tone, oval face, strong jawline, soft nose, full lips, almond eyes/hazel/long lashes, defined cheekbones, straigh...
+17:57:35 [pipeline] Scene 4: LLM rewriting prompt...
+17:57:35 [pipeline.image.rewriter] Scene 4: Score N/A — blind rewrite (not showing image to model)
+17:57:35 [pipeline.llm.local] Chat: qwen3-vl:30b-a3b (1 messages)
+17:57:39 [pipeline.llm.local] Chat done: 3.9s, 638 tokens, 165 tok/s
+17:57:39 [pipeline.image.rewriter] Scene 4: Rewritten prompt: Female artist mid-40s, light skin, oval face, strong jawline, soft nose, full lips, almond eyes/hazel/long lashes, defined cheekbones, straight eyebro...
+17:57:39 [pipeline] Scene 5: LLM rewriting prompt...
+17:57:39 [pipeline.image.rewriter] Scene 5: Score N/A — blind rewrite (not showing image to model)
+17:57:39 [pipeline.llm.local] Chat: qwen3-vl:30b-a3b (1 messages)
+17:57:45 [pipeline.llm.local] Chat done: 6.2s, 1024 tokens, 166 tok/s
+17:57:45 [pipeline.image.rewriter] Scene 5: Rewritten prompt: ...
+17:57:45 [pipeline.validators.prompt] Scene 1 prompt deterministic FAIL: ['No pipe separators — must use Subject: | Pose: | Camera: | ... format', 'No character DNA referenced in prompt', 'No location DNA referenced in prompt', 'Prompt too short (0 chars) — likely incomplete']
+17:57:45 [pipeline.validators.prompt] Scene 2 prompt deterministic FAIL: ['Missing field: Subject:', "Motion verbs in image prompt (belong in video prompt): ['jumps']"]
+17:57:45 [pipeline.validators.prompt] Scene 3 prompt deterministic FAIL: ["Motion verbs in image prompt (belong in video prompt): ['jumps']"]
+17:57:45 [pipeline.validators.prompt] Scene 4 prompt deterministic FAIL: ['Missing field: Subject:', "Motion verbs in image prompt (belong in video prompt): ['jumps']"]
+17:57:45 [pipeline.validators.prompt] Scene 5 prompt deterministic FAIL: ['No pipe separators — must use Subject: | Pose: | Camera: | ... format', 'No character DNA referenced in prompt', 'No location DNA referenced in prompt', 'Prompt too short (0 chars) — likely incomplete']
+17:57:45 [pipeline.validators.prompt] Prompt validation: 0 PASS, 5 FAIL, 0 ERROR/INCONCLUSIVE out of 5 scenes
+17:57:45 [pipeline] 5 prompts still failing after rewrite — proceeding with best effort
+17:57:45 [pipeline] Stopping Ollama for image generation...
+17:57:45 [pipeline.llm.local] Stopping all Ollama models...
+17:57:45 [pipeline.llm.local] Unloaded: qwen3-vl:30b-a3b
+17:57:47 [pipeline.state] State: VALIDATING_PROMPTS -> GENERATING_IMAGES
+17:57:47 [pipeline] Starting ComfyUI for image generation (Qwen-Image-2512)...
+17:57:47 [pipeline.utils.comfyui] Cleaned 1 old output files matching 'scene_*'
+17:57:47 [pipeline.utils.comfyui] Starting ComfyUI (mode=image)...
+17:57:55 [pipeline.utils.comfyui] ComfyUI ready after 8s
+17:57:55 [pipeline.image.generator] Scene 1: Generating image (seed=95702107)
+17:57:55 [pipeline.image.generator]   Prompt: ...
+17:57:55 [pipeline.utils.comfyui] Submitted: e77d8188...
+17:58:10 [pipeline.utils.comfyui]   15s elapsed (VRAM: 18000 MB)
+17:58:25 [pipeline.utils.comfyui]   30s elapsed (VRAM: 29328 MB)
+17:58:30 [pipeline.utils.comfyui] Completed in 35.1s
+17:58:30 [pipeline.image.generator] Saved /home/bbnlabs5/video-pipeline/stories/output/176/images/scene_01.png
+17:58:30 [pipeline.image.generator] Scene 2: Generating image (seed=95702108)
+17:58:30 [pipeline.image.generator]   Prompt: Female artist, mid-40s, light skin, oval face, strong jawline, soft nose, full lips, almond eyes/hazel/long lashes, defined cheekbones, straight eyebr...
+17:58:30 [pipeline.utils.comfyui] Submitted: d8828b9b...
+17:58:40 [pipeline.utils.comfyui] Completed in 10.0s
+17:58:40 [pipeline.image.generator] Saved /home/bbnlabs5/video-pipeline/stories/output/176/images/scene_02.png
+17:58:40 [pipeline.image.generator] Scene 3: Generating image (seed=95702109)
+17:58:40 [pipeline.image.generator]   Prompt: Subject: female, mid-40s, light skin tone, oval face, strong jawline, soft nose, full lips, almond eyes/hazel/long lashes, defined cheekbones, straigh...
+17:58:40 [pipeline.utils.comfyui] Submitted: 2278a896...
+17:58:50 [pipeline.utils.comfyui] Completed in 10.0s
+17:58:50 [pipeline.image.generator] Saved /home/bbnlabs5/video-pipeline/stories/output/176/images/scene_03.png
+17:58:50 [pipeline.image.generator] Scene 4: Generating image (seed=95702110)
+17:58:50 [pipeline.image.generator]   Prompt: Female artist mid-40s, light skin, oval face, strong jawline, soft nose, full lips, almond eyes/hazel/long lashes, defined cheekbones, straight eyebro...
+17:58:50 [pipeline.utils.comfyui] Submitted: b2a7b61e...
+17:59:00 [pipeline.utils.comfyui] Completed in 10.0s
+17:59:00 [pipeline.image.generator] Saved /home/bbnlabs5/video-pipeline/stories/output/176/images/scene_04.png
+17:59:00 [pipeline.image.generator] Scene 5: Generating image (seed=95702111)
+17:59:00 [pipeline.image.generator]   Prompt: ...
+17:59:00 [pipeline.utils.comfyui] Submitted: 296b9aee...
+17:59:10 [pipeline.utils.comfyui] Completed in 10.0s
+17:59:10 [pipeline.image.generator] Saved /home/bbnlabs5/video-pipeline/stories/output/176/images/scene_05.png
+17:59:10 [pipeline.image.generator] Generated 5/5 images
+17:59:10 [pipeline.utils.comfyui] Stopping ComfyUI...
+17:59:10 [pipeline.utils.comfyui] Models unloaded via /free API
+17:59:13 [pipeline.utils.comfyui] GPU memory cleared (2 MB)
+17:59:13 [pipeline.state] State: GENERATING_IMAGES -> VALIDATING_IMAGES
+17:59:13 [pipeline] Validating generated images...
+17:59:13 [pipeline.llm.local] Vision: qwen3-vl:30b-a3b + scene_01.png
+17:59:35 [pipeline.llm.local] Vision done: 21.8s
+17:59:35 [pipeline.validators.image] Scene 1: image validator PARSE FAILURE — returning VALIDATOR_ERROR (image is KEPT)
+17:59:35 [pipeline.llm.local] Vision: qwen3-vl:30b-a3b + scene_02.png
+17:59:43 [pipeline.llm.local] Vision done: 7.8s
+17:59:43 [pipeline.validators.image] Scene 2: PASS (score=75, confidence=0.85)
+17:59:43 [pipeline.validators.image]   - Subject matches: female, mid-40s, light skin, bun hairstyle, grey jumpsuit, yellow gloves.
+17:59:43 [pipeline.validators.image]   - Setting matches Modern Art Wing: white walls, polished concrete floor, minimalist stands, cool LED lighting.
+17:59:43 [pipeline.llm.local] Vision: qwen3-vl:30b-a3b + scene_03.png
+17:59:50 [pipeline.llm.local] Vision done: 6.6s
+17:59:50 [pipeline.validators.image] Scene 3: PASS (score=90, confidence=0.95)
+17:59:50 [pipeline.validators.image]   - Subject matches: female with light skin, oval face, strong jawline, etc., as requested.
+17:59:50 [pipeline.validators.image]   - Setting matches: Modern Art Wing with white walls, polished concrete floor, large windows with blinds, and minimalist display stands.
+17:59:50 [pipeline.llm.local] Vision: qwen3-vl:30b-a3b + scene_04.png
+17:59:58 [pipeline.llm.local] Vision done: 8.6s
+17:59:58 [pipeline.validators.image] Scene 4: PASS (score=75, confidence=0.85)
+17:59:58 [pipeline.validators.image]   - Subject matches: female with described features (light skin, oval face, etc.) in grey jumpsuit and yellow gloves.
+17:59:58 [pipeline.validators.image]   - Setting matches: Modern Art Wing with white walls, polished concrete floor, large windows, and gallery displays.
+17:59:58 [pipeline.llm.local] Vision: qwen3-vl:30b-a3b + scene_05.png
+18:00:09 [pipeline.llm.local] Vision done: 10.5s
+18:00:09 [pipeline.validators.image] Scene 5: FAIL (score=15, confidence=0.95)
+18:00:09 [pipeline.validators.image]   - Subject is female but does not match prompt details (age, hair, clothing: prompt specifies mid-40s, bun, grey jumpsuit; image shows younger woman with long hair, bikini top, shorts)
+18:00:09 [pipeline.validators.image]   - Setting is a lakeside environment, not the Modern Art Wing gallery described in the prompt
+18:00:09 [pipeline.validators.image] Image validation: 3 PASS, 1 FAIL, 1 ERROR/INCONCLUSIVE out of 5 scenes
+18:00:09 [pipeline] Image validation: 4 accepted, 1 need challengers
+18:00:09 [pipeline.state] State: VALIDATING_IMAGES -> CHALLENGING_IMAGES
+18:00:09 [pipeline] Challenging 1 failed scenes...
+18:00:09 [pipeline.image.challenger] Challenge round 1/2: 1 scenes
+18:00:09 [pipeline.image.challenger] Phase 1: Rewriting prompts...
+18:00:09 [pipeline.image.rewriter] Scene 5: Score 15 — blind rewrite (not showing image to model)
+18:00:09 [pipeline.llm.local] Chat: qwen3-vl:30b-a3b (1 messages)
+18:00:12 [pipeline.llm.local] Chat done: 3.7s, 600 tokens, 164 tok/s
+18:00:12 [pipeline.image.rewriter] Scene 5: Rewritten prompt: Female artist, mid-40s, light skin, oval face, strong jawline, soft nose, full lips, almond eyes/hazel/long lashes, defined cheekbones, straight brows...
+18:00:12 [pipeline.llm.local] Stopping all Ollama models...
+18:00:12 [pipeline.llm.local] Unloaded: qwen3-vl:30b-a3b
+18:00:14 [pipeline.image.challenger] Phase 2: Generating 1 challengers...
+18:00:14 [pipeline.utils.comfyui] Starting ComfyUI (mode=image)...
+18:00:22 [pipeline.utils.comfyui] ComfyUI ready after 8s
+18:00:22 [pipeline.image.challenger] Scene 5: Generating challenger v2
+18:00:22 [pipeline.utils.comfyui] Submitted: 1606349d...
+18:00:37 [pipeline.utils.comfyui]   15s elapsed (VRAM: 17808 MB)
+18:00:53 [pipeline.utils.comfyui]   30s elapsed (VRAM: 29520 MB)
+18:00:58 [pipeline.utils.comfyui] Completed in 35.1s
+18:00:58 [pipeline.utils.comfyui] Stopping ComfyUI...
+18:00:58 [pipeline.utils.comfyui] Models unloaded via /free API
+18:01:01 [pipeline.utils.comfyui] GPU memory cleared (2 MB)
+18:01:03 [pipeline.image.challenger] Phase 3: Validating challengers + pairwise comparison...
+18:01:03 [pipeline.llm.local] Vision: qwen3-vl:30b-a3b + scene_05_v2.png
+18:01:17 [pipeline.llm.local] Vision done: 13.8s
+18:01:17 [pipeline.validators.image] Scene 5: PASS (score=90, confidence=0.95)
+18:01:17 [pipeline.validators.image]   - Subject matches: female with grey jumpsuit, yellow gloves, bun hairstyle as requested
+18:01:17 [pipeline.validators.image]   - Setting accurately depicts modern art gallery with white walls, polished concrete floor, large windows with blinds, and cool LED lighting
+18:01:17 [pipeline.validators.pairwise] Scene 5: Pairwise comparison (baseline vs challenger)
+18:01:19 [pipeline.validators.pairwise] Scene 5: Pairwise winner = CHALLENGER (confidence=0.95, reason: Image A depicts a beach scene with a different subject, while Image B matches th)
+18:01:19 [pipeline.image.challenger] Scene 5: PROMOTED v2 (score 15 -> 90)
+18:01:19 [pipeline.llm.local] Stopping all Ollama models...
+18:01:19 [pipeline.llm.local] Unloaded: qwen3-vl:30b-a3b
+18:01:21 [pipeline.llm.local] Stopping all Ollama models...
+18:01:23 [pipeline.state] State: CHALLENGING_IMAGES -> GENERATING_VIDEOS
+18:01:23 [pipeline] Starting video generation (LTX-2.3 22B distilled)...
+18:01:23 [pipeline.utils.comfyui] Starting ComfyUI (mode=video)...
+18:01:31 [pipeline.utils.comfyui] ComfyUI ready after 8s
+18:01:31 [pipeline.video.generator] Scene 1/5: Generating video (seed=4191134414)

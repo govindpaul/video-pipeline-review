@@ -1,0 +1,13 @@
+{
+  "_source": "Pairwise vision call to qwen3-vl:30b-a3b with pairwise_rubric_v1, story #176 scene 5",
+  "_model": "qwen3-vl:30b-a3b",
+  "_baseline": "scene_05_v1.png (score 15, wrong subject — beach scene)",
+  "_challenger": "scene_05_v2.png (score 90, correct subject and setting)",
+  "winner": "CHALLENGER",
+  "prompt_adherence": "CHALLENGER",
+  "scene_intent": "CHALLENGER",
+  "story_continuity": "CHALLENGER",
+  "visual_readability": "TIE",
+  "reason": "Image A depicts a beach scene with a different subject, while Image B matches the prompt's character, setting, and scene intent correctly.",
+  "confidence": 0.95
+}

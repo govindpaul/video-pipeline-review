@@ -1,0 +1,14 @@
+[
+  {
+    "scene_num": 5,
+    "round": 1,
+    "baseline_version": 1,
+    "challenger_version": 2,
+    "baseline_score": 15,
+    "challenger_score": 90,
+    "promoted": true,
+    "reason": "Pairwise: CHALLENGER (baseline=15, challenger=90, reason: Image A depicts a beach scene with a different subject, while Image B matches th)",
+    "pairwise_winner": "CHALLENGER",
+    "pairwise_confidence": 0.95
+  }
+]

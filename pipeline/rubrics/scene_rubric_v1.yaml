@@ -1,0 +1,82 @@
+# Scene Validation Rubric v1
+# Evaluates story scene structure for short-form vertical video (10-25s)
+# Used by: pipeline/validators/scene.py
+version: 1
+
+criteria:
+  - id: SC01
+    name: hook_early
+    description: "Hook (attention-grabbing element) must be visible by scene 1 or 2"
+    weight: critical
+
+  - id: SC02
+    name: each_scene_has_purpose
+    description: "Each scene must have one clear visual purpose — no filler scenes"
+    weight: critical
+
+  - id: SC03
+    name: payoff_present
+    description: "Last scene (or second-to-last) must contain a payoff, reveal, or resolution"
+    weight: critical
+
+  - id: SC04
+    name: no_redundant_beats
+    description: "No two consecutive scenes should show the same beat unless intentionally comedic"
+    weight: important
+
+  - id: SC05
+    name: silent_understandable
+    description: "The full story must be understandable as a silent video — no dialogue, text, or narration required"
+    weight: critical
+
+  - id: SC06
+    name: pacing_fits_format
+    description: "Total runtime (scene_count x avg_duration) must fit 10-25 seconds for vertical short-form"
+    weight: important
+
+  - id: SC07
+    name: visual_progression
+    description: "Scenes should show a visual progression — something changes between start and end"
+    weight: important
+
+  - id: SC08
+    name: not_confusing
+    description: "A stranger seeing this for the first time should follow the sequence without explanation"
+    weight: critical
+
+prompt_template: |
+  You are evaluating the scene structure of a short-form video story (TikTok/Reels format, 10-25 seconds, vertical 9:16).
+
+  STORY:
+  Title: {title}
+  Summary: {summary}
+  Scene count: {scene_count}
+  Estimated runtime: {estimated_runtime}s
+
+  SCENES:
+  {scenes_text}
+
+  RUBRIC — evaluate each criterion:
+  {rubric_text}
+
+  For each criterion, answer: PASS or FAIL with a brief reason.
+  Then give an overall state: PASS (all critical criteria pass) or FAIL (any critical criterion fails).
+  Rate your confidence 0.0-1.0.
+
+  Output JSON:
+  {{
+    "state": "PASS or FAIL",
+    "hook_present": true/false,
+    "hook_by_scene": 1,
+    "payoff_present": true/false,
+    "payoff_scene": 5,
+    "silent_understandable": true/false,
+    "pacing": "good or too_fast or too_slow",
+    "each_scene_has_purpose": true/false,
+    "no_redundant_scenes": true/false,
+    "redundant_scenes": [],
+    "confusing_scenes": [],
+    "issues": ["list of specific problems"],
+    "suggestions": ["list of specific fixes"],
+    "confidence": 0.85
+  }}

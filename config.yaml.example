@@ -1,0 +1,86 @@
+# Video Pipeline v3 — Configuration Example
+# Copy to config.yaml and fill in credentials
+
+project:
+  name: video-pipeline
+  story_start: 172
+  base_dir: /path/to/video-pipeline
+
+paths:
+  comfyui_dir: /path/to/comfyui
+  stories_dir: stories
+  output_dir: stories/output
+
+comfyui:
+  port: 8199
+  url: http://localhost:8199
+  startup_timeout: 90
+  workflow_timeout: 600
+
+models:
+  story_llm:
+    provider: ollama
+    model: qwen3.5:35b-a3b
+    temperature: 0.7
+    max_tokens: 16384
+
+  vision_llm:
+    provider: ollama
+    model: qwen3-vl:30b-a3b
+    temperature: 0.3
+    max_tokens: 2048
+
+  image:
+    width: 704
+    height: 1248
+    steps: 8
+    cfg: 1.0
+    sampler: euler
+    scheduler: beta
+    shift: 3.0
+    negative_prompt: >-
+      blurry, low quality, distorted, deformed, oversaturated, watermark,
+      smooth skin, airbrushed, doll-like, plastic, extra fingers,
+      unnatural proportions, text overlay, signature
+
+  video:
+    width: 544
+    height: 960
+    num_frames: 121
+    fps: 25
+    lora_strength_stage1: 0.5
+    lora_strength_stage2: 0.5
+    i2v_strength: 1.0
+    img_compression: 35
+    stage1_sampler: euler_ancestral_cfg_pp
+    stage1_cfg: 1.0
+    stage1_stg_scale: 0.0
+    stage2_sampler: euler_cfg_pp
+    stage2_cfg: 1.0
+    stage1_sigmas: "1.0, 0.99375, 0.9875, 0.98125, 0.975, 0.909375, 0.725, 0.421875, 0.0"
+    stage2_sigmas: "0.909375, 0.725, 0.421875, 0.0"
+    negative_prompt: "pc game, console game, video game, cartoon, childish, ugly"
+
+validation:
+  max_rounds: 3
+  thresholds: [70, 60, 0]
+
+story:
+  scene_count_min: 5
+  scene_count_max: 8
+  scene_duration_min: 3
+  scene_duration_max: 5
+  default_trim_ms: 500
+
+output:
+  upload_nextcloud: false
+  notify_telegram: false
+
+telegram:
+  bot_token: "YOUR_BOT_TOKEN"
+  chat_id: "YOUR_CHAT_ID"
+
+nextcloud:
+  url: "https://your-nextcloud/remote.php/dav/files/user/AI_VIDEOS/"
+  user: "your_user"
+  password: "your_password"

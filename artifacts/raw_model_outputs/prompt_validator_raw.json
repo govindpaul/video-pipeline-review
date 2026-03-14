@@ -1,0 +1,23 @@
+{
+  "_source": "Direct LLM call to qwen3.5:35b-a3b with prompt_rubric_v1, max_tokens=8192",
+  "_story": "story-174-the-dusty-slot.md, scene 1",
+  "_model": "qwen3.5:35b-a3b",
+  "state": "FAIL",
+  "matches_story_beat": false,
+  "character_dna_present": true,
+  "location_dna_present": true,
+  "object_dna_present": true,
+  "describes_opening_frame": false,
+  "framing_appropriate": false,
+  "no_contradictions": false,
+  "not_overloaded": true,
+  "prompt_clarity": "contradictory",
+  "issues": [
+    "Geometric contradiction: 'low angle' camera view is incompatible with 'crown of head visible' (requires high angle or eye level looking down).",
+    "Framing contradiction: 'extreme close-up' typically excludes the full head/crown, conflicting with pose description.",
+    "Action verb usage: 'wiping' implies continuous motion in a prompt intended for a static still frame opening.",
+    "Object DNA omission is correct for this beat (Empty Slot), but clarity could be improved to ensure no Red Book appears."
+  ],
+  "suggested_fix": "Change camera angle from 'low angle' to 'high angle looking down' or 'eye level' to allow crown visibility. Change 'extreme close-up' to 'close-up' if head must be visible. Replace 'wiping shelf surface' with 'holding cloth against shelf surface' to describe a static pose suitable for an image generator.",
+  "confidence": 0.95
+}

@@ -1,0 +1,71 @@
+{
+  "scene_01": {
+    "selected_version": 1,
+    "versions": [
+      {
+        "version": 1,
+        "filename": "scene_01_v1.png",
+        "prompt_used": "Subject: female, mid-40s, light skin tone, oval face shape, strong jawline, soft nose, full lips, almond eyes/hazel color/long lashes, defined cheekbones, straight eyebrows, short dark hair pulled bac...",
+        "validation_state": "VALIDATOR_ERROR",
+        "validation_score": 0
+      }
+    ]
+  },
+  "scene_02": {
+    "selected_version": 1,
+    "versions": [
+      {
+        "version": 1,
+        "filename": "scene_02_v1.png",
+        "prompt_used": "Subject: female, mid-40s, light skin tone, oval face shape, strong jawline, soft nose, full lips, almond eyes/hazel color/long lashes, defined cheekbones, straight eyebrows, short dark hair pulled bac...",
+        "validation_state": "PASS",
+        "validation_score": 75
+      }
+    ]
+  },
+  "scene_03": {
+    "selected_version": 1,
+    "versions": [
+      {
+        "version": 1,
+        "filename": "scene_03_v1.png",
+        "prompt_used": "Subject: female, mid-40s, light skin tone, oval face shape, strong jawline, soft nose, full lips, almond eyes/hazel color/long lashes, defined cheekbones, straight eyebrows, short dark hair pulled bac...",
+        "validation_state": "PASS",
+        "validation_score": 90
+      }
+    ]
+  },
+  "scene_04": {
+    "selected_version": 1,
+    "versions": [
+      {
+        "version": 1,
+        "filename": "scene_04_v1.png",
+        "prompt_used": "Subject: female, mid-40s, light skin tone, oval face shape, strong jawline, soft nose, full lips, almond eyes/hazel color/long lashes, defined cheekbones, straight eyebrows, short dark hair pulled bac...",
+        "validation_state": "PASS",
+        "validation_score": 75
+      }
+    ]
+  },
+  "scene_05": {
+    "selected_version": 2,
+    "versions": [
+      {
+        "version": 1,
+        "filename": "scene_05_v1.png",
+        "prompt_used": "Subject: female, mid-40s, light skin tone, oval face shape, strong jawline, soft nose, full lips, almond eyes/hazel color/long lashes, defined cheekbones, straight eyebrows, short dark hair pulled bac...",
+        "validation_state": "FAIL",
+        "validation_score": 15
+      },
+      {
+        "version": 2,
+        "filename": "scene_05_v2.png",
+        "prompt_used": "Female artist, mid-40s, light skin, oval face, strong jawline, soft nose, full lips, almond eyes/hazel/long lashes, defined cheekbones, straight brows, short dark hair in bun, grey jumpsuit, yellow ru...",
+        "validation_state": "PASS",
+        "validation_score": 90,
+        "comparison_winner": "CHALLENGER",
+        "comparison_confidence": 0.95
+      }
+    ]
+  }
+}

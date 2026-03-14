@@ -1,0 +1,94 @@
+# Prompt Validation Rubric v1
+# Evaluates individual image prompts for Qwen-Image-2512 generation
+# Used by: pipeline/validators/prompt.py
+version: 1
+
+criteria:
+  - id: PR01
+    name: character_dna_present
+    description: "Prompt contains character DNA for all characters appearing in this scene"
+    weight: critical
+
+  - id: PR02
+    name: location_dna_present
+    description: "Prompt contains location DNA anchoring the environment"
+    weight: critical
+
+  - id: PR03
+    name: describes_opening_frame
+    description: "Prompt describes a STILL opening frame, not a full motion sequence. No action verbs like 'runs', 'jumps', 'walks' — those belong in the video prompt"
+    weight: critical
+
+  - id: PR04
+    name: camera_framing_fits_beat
+    description: "Camera angle, lens, and composition serve this scene's story beat (close-up for emotion, wide for establishing, etc.)"
+    weight: important
+
+  - id: PR05
+    name: no_contradictions
+    description: "No contradictory instructions (e.g., 'close-up' + 'full body visible', 'looking down' + 'eyes at camera')"
+    weight: critical
+
+  - id: PR06
+    name: not_overloaded
+    description: "Prompt is not so dense that the model loses focus. Subject description should be front-loaded, key details should not be buried"
+    weight: important
+
+  - id: PR07
+    name: object_dna_present
+    description: "If scene features specific objects, their DNA description is present"
+    weight: important
+
+  - id: PR08
+    name: visual_consistency
+    description: "Prompt does not contradict character/location descriptions from other scenes"
+    weight: important
+
+prompt_template: |
+  You are evaluating an image generation prompt for a scene in a short video story.
+
+  STORY CONTEXT:
+  Title: {title}
+  Summary: {summary}
+  Scene {scene_num} of {total_scenes}: {scene_title}
+  Scene purpose: {scene_purpose}
+
+  CHARACTER DNA (should appear in prompt if character is in scene):
+  {character_dna}
+
+  LOCATION DNA (should anchor the environment):
+  {location_dna}
+
+  OBJECT DNA (should appear if object is featured):
+  {object_dna}
+
+  IMAGE PROMPT TO EVALUATE:
+  {image_prompt}
+
+  VIDEO PROMPT (for context — the image prompt should set up this action):
+  {video_prompt}
+
+  RUBRIC — evaluate each criterion:
+  {rubric_text}
+
+  For each criterion, answer: PASS or FAIL with a brief reason.
+  Then give an overall state: PASS (all critical criteria pass) or FAIL (any critical criterion fails).
+  If FAIL, suggest a specific fix.
+  Rate your confidence 0.0-1.0.
+
+  Output JSON:
+  {{
+    "state": "PASS or FAIL",
+    "matches_story_beat": true/false,
+    "character_dna_present": true/false,
+    "location_dna_present": true/false,
+    "object_dna_present": true/false,
+    "describes_opening_frame": true/false,
+    "framing_appropriate": true/false,
+    "no_contradictions": true/false,
+    "not_overloaded": true/false,
+    "prompt_clarity": "clear or overloaded or vague or contradictory",
+    "issues": ["list of specific problems"],
+    "suggested_fix": "specific rewrite suggestion or empty string",
+    "confidence": 0.85
+  }}

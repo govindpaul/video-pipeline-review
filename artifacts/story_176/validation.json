@@ -1,0 +1,74 @@
+[
+  {
+    "scene": 1,
+    "state": "VALIDATOR_ERROR",
+    "score": 0,
+    "findings": [
+      "Validator could not parse its own response"
+    ],
+    "confidence": 0.0
+  },
+  {
+    "scene": 2,
+    "state": "PASS",
+    "score": 75,
+    "findings": [
+      "Subject matches: female, mid-40s, light skin, bun hairstyle, grey jumpsuit, yellow gloves.",
+      "Setting matches Modern Art Wing: white walls, polished concrete floor, minimalist stands, cool LED lighting.",
+      "Required objects present: grey jumpsuit, yellow gloves, canvas with paint.",
+      "Composition matches: macro close-up, eye level with canvas, shallow DoF (background blurred).",
+      "Scene intent fulfilled: shows index finger pressing into paint (core action of 'The Touch').",
+      "Story continuity: character appearance aligns with prompt (no inconsistencies).",
+      "Visually readable: clear focus on hands/canvas, no clutter for mobile viewing.",
+      "Strong opening frame: action-focused, engages viewer with tactile moment."
+    ],
+    "confidence": 0.85
+  },
+  {
+    "scene": 3,
+    "state": "PASS",
+    "score": 90,
+    "findings": [
+      "Subject matches: female with light skin, oval face, strong jawline, etc., as requested.",
+      "Setting matches: Modern Art Wing with white walls, polished concrete floor, large windows with blinds, and minimalist display stands.",
+      "Required objects present: grey jumpsuit, yellow rubber gloves, large abstract canvas on easel, cool LED lighting.",
+      "Composition matches: Medium close-up, side profile angle, shallow depth of field (evident in background blur).",
+      "Scene intent: Action (wiping canvas) sets up narrative for a 3-5s clip opening.",
+      "Story continuity: Character appearance (jumpsuit, gloves, hair) aligns with prompt for consistent worldbuilding.",
+      "Visually readable: Clear, uncluttered composition suitable for vertical short-form video.",
+      "Strong opening frame: Dynamic action (wiping) with visual interest (color transition on canvas) engages viewers."
+    ],
+    "confidence": 0.95
+  },
+  {
+    "scene": 4,
+    "state": "PASS",
+    "score": 75,
+    "findings": [
+      "Subject matches: female with described features (light skin, oval face, etc.) in grey jumpsuit and yellow gloves.",
+      "Setting matches: Modern Art Wing with white walls, polished concrete floor, large windows, and gallery displays.",
+      "Required objects present: grey jumpsuit, yellow gloves, easel, and canvas.",
+      "Composition does not match: Prompt requested close-up of canvas surface, but image is a medium shot of the woman (not close-up of canvas).",
+      "Scene intent is plausible: Image shows the woman observing the canvas, setting up the 'reveal' narrative.",
+      "Story continuity consistent: Character appearance and gallery setting align with previous scenes.",
+      "Visually readable: Clear, uncluttered composition suitable for phone screens.",
+      "Strong opening frame: Establishes context for the reveal with visual interest (woman, canvas, gallery setting)."
+    ],
+    "confidence": 0.85
+  },
+  {
+    "scene": 5,
+    "state": "FAIL",
+    "score": 15,
+    "findings": [
+      "Subject is female but does not match prompt details (age, hair, clothing: prompt specifies mid-40s, bun, grey jumpsuit; image shows younger woman with long hair, bikini top, shorts)",
+      "Setting is a lakeside environment, not the Modern Art Wing gallery described in the prompt",
+      "Required objects (grey jumpsuit, yellow rubber gloves, abstract canvas) are completely absent",
+      "Composition is a close-up shot, not the wide shot requested",
+      "Scene intent (opening frame for art gallery action) is not reflected; image is unrelated to the narrative",
+      "Character appearance (age, hair, attire) conflicts with story continuity requirements",
+      "Image is visually readable but irrelevant to the scene's context"
+    ],
+    "confidence": 0.95
+  }
+]

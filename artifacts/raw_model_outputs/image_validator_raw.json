@@ -1,0 +1,26 @@
+{
+  "_source": "Vision call to qwen3-vl:30b-a3b with image_rubric_v1, story #174 scene 2",
+  "_model": "qwen3-vl:30b-a3b",
+  "state": "PASS",
+  "score": 90,
+  "matches_prompt": true,
+  "characters_present": true,
+  "objects_present": true,
+  "setting_correct": true,
+  "matches_scene_intent": true,
+  "matches_story": true,
+  "composition_acceptable": true,
+  "visually_readable": true,
+  "strong_opening_frame": true,
+  "findings": [
+    "Subject matches: elderly woman with gray hair in a bun, wearing cardigan, blouse, and apron as requested.",
+    "Setting matches: old bookstore with tall wooden shelves, leather-bound books, wooden floorboards, arched window, and warm lighting.",
+    "Required objects present: brass reading lamp, stack of newspapers, floating dust motes in light beams.",
+    "Composition matches: medium shot, eye level, 50mm lens framing as specified.",
+    "Scene intent fulfilled: woman in side profile turning away from shelf, consistent with 'Turning Away' action.",
+    "Story continuity: character appearance (age, hair, clothing) aligns with prompt description.",
+    "Visually readable: clear details at phone screen size, no clutter.",
+    "Strong opening frame: lighting, composition, and action setup create visual interest for a 3-5 second clip."
+  ],
+  "confidence": 0.95
+}
