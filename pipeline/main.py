@@ -237,24 +237,47 @@ def run_new(concept_seed: str = None, story_only: bool = False):
                         original_prompt=original_prompts[scene.number],
                     )
 
-                # Validate candidate passes deterministic checks before accepting
+                # Two-stage validation before accepting replacement prompt:
+                # 1. Deterministic (format, DNA, no motion verbs)
+                # 2. Semantic (LLM checks story alignment, contradictions)
                 if candidate:
                     from pipeline.validators.deterministic import check_prompt_deterministic
+                    from pipeline.validators.prompt import validate_prompt as _validate_prompt
                     from pipeline.story.parser import Scene as _Scene
                     test_scene = _Scene(
                         number=scene.number, title=scene.title,
                         image_prompt=candidate, video_prompt=scene.video_prompt,
                     )
+
+                    # Stage 1: Deterministic
                     det_state, det_issues = check_prompt_deterministic(test_scene, story)
-                    if det_state == ValidationState.PASS:
-                        scene.image_prompt = candidate
-                        log.info(f"Scene {scene.number}: Replacement prompt accepted (passes deterministic checks)")
-                    else:
+                    if det_state != ValidationState.PASS:
                         log.warning(
-                            f"Scene {scene.number}: Replacement prompt REJECTED "
-                            f"(failed deterministic: {det_issues[:2]}). Keeping original."
+                            f"Scene {scene.number}: Replacement REJECTED "
+                            f"(deterministic: {det_issues[:2]}). Keeping original."
                         )
-                        # Keep original — do NOT assign broken prompt
+                        continue
+
+                    # Stage 2: Semantic (LLM)
+                    sem_result = _validate_prompt(test_scene, story, config)
+                    log.info(
+                        f"Scene {scene.number}: Semantic revalidation: "
+                        f"{sem_result.state.value} (confidence={sem_result.confidence:.2f})"
+                    )
+
+                    if sem_result.state == ValidationState.FAIL:
+                        log.warning(
+                            f"Scene {scene.number}: Replacement REJECTED "
+                            f"(semantic: {sem_result.issues[:2]}). Keeping original."
+                        )
+                        continue
+
+                    # Both passed — accept replacement
+                    scene.image_prompt = candidate
+                    log.info(
+                        f"Scene {scene.number}: Replacement accepted "
+                        f"(deterministic PASS + semantic {sem_result.state.value})"
+                    )
 
             # Log final prompt state (advisory, not blocking)
             prompt_results = validate_all_prompts(story, config)

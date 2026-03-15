@@ -100,8 +100,10 @@ def run_challenges(
                 original_prompt=original_prompt,
             )
 
-            # Revalidate rewritten prompt before using it for generation
+            # Two-stage revalidation before using rewritten prompt:
+            # 1. Deterministic (format) 2. Semantic (LLM)
             from pipeline.validators.deterministic import check_prompt_deterministic
+            from pipeline.validators.prompt import validate_prompt as _validate_prompt
             from pipeline.story.parser import Scene as _Scene
             test_scene = _Scene(
                 number=scene_num, title=scene.title,
@@ -110,10 +112,23 @@ def run_challenges(
             det_state, det_issues = check_prompt_deterministic(test_scene, story)
             if det_state != ValidationState.PASS:
                 log.warning(
-                    f"Scene {scene_num}: Rewritten prompt failed deterministic checks: "
-                    f"{det_issues[:2]}. Using original prompt instead."
+                    f"Scene {scene_num}: Rewritten prompt failed deterministic: "
+                    f"{det_issues[:2]}. Using original."
                 )
                 new_prompt = original_prompt
+            else:
+                sem_result = _validate_prompt(test_scene, story, config)
+                if sem_result.state == ValidationState.FAIL:
+                    log.warning(
+                        f"Scene {scene_num}: Rewritten prompt failed semantic: "
+                        f"{sem_result.issues[:2]}. Using original."
+                    )
+                    new_prompt = original_prompt
+                else:
+                    log.info(
+                        f"Scene {scene_num}: Rewritten prompt accepted "
+                        f"(deterministic PASS + semantic {sem_result.state.value})"
+                    )
 
             challenger_filename = f"scene_{scene_num:02d}_v{new_version_num}.png"
             challenger_path = images_dir / challenger_filename

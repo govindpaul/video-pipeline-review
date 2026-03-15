@@ -23,7 +23,7 @@ from pipeline.validators.schema import (
     ValidationState, ImageValidation, PairwiseDecision,
     SceneImageHistory, ImageVersion, PromotionLog,
 )
-from pipeline.validators.image import _parse_json
+from pipeline.validators.parse_utils import parse_validator_json as _parse_json
 
 
 def test_parse_failure_is_non_destructive():

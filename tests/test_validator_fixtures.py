@@ -16,8 +16,9 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from pipeline.validators.schema import ValidationState
-from pipeline.validators.scene import validate_scenes, _parse_json
-from pipeline.validators.prompt import validate_prompt, _parse_json as prompt_parse_json
+from pipeline.validators.scene import validate_scenes
+from pipeline.validators.prompt import validate_prompt
+from pipeline.validators.parse_utils import parse_validator_json as _parse_json
 from pipeline.story.parser import StoryData, Scene
 
 
@@ -214,7 +215,7 @@ def test_prompt_validator_pass():
         "not_overloaded": True,
         "prompt_clarity": "clear",
         "issues": [],
-        "suggested_fix": "",
+        "fix_notes": "",
         "confidence": 0.90,
     })
 
@@ -244,7 +245,7 @@ def test_prompt_validator_fail_overloaded():
         "not_overloaded": False,
         "prompt_clarity": "overloaded",
         "issues": ["Prompt contains 800+ chars of DNA description that dilutes the main subject"],
-        "suggested_fix": "Subject: man, 30, brown hair, jacket | Pose: standing | Camera: medium, 50mm...",
+        "fix_notes": "Subject: man, 30, brown hair, jacket | Pose: standing | Camera: medium, 50mm...",
         "confidence": 0.85,
     })
 
@@ -254,7 +255,7 @@ def test_prompt_validator_fail_overloaded():
 
     assert result.state == ValidationState.FAIL
     assert result.prompt_clarity == "overloaded"
-    assert result.suggested_fix != ""
+    assert result.fix_notes != ""
     print("  FAIL overloaded: correctly parsed with suggested fix")
 
 

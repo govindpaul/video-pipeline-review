@@ -135,28 +135,4 @@ def validate_scenes(story: StoryData, config: dict) -> SceneValidation:
         )
 
 
-def _parse_json(response: str) -> dict | None:
-    """Parse JSON from LLM response. Returns None on failure."""
-    text = response.strip()
-
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        pass
-
-    json_match = re.search(r"```(?:json)?\s*\n?(.*?)\n?```", text, re.DOTALL)
-    if json_match:
-        try:
-            return json.loads(json_match.group(1))
-        except json.JSONDecodeError:
-            pass
-
-    brace_start = text.find("{")
-    brace_end = text.rfind("}")
-    if brace_start >= 0 and brace_end > brace_start:
-        try:
-            return json.loads(text[brace_start : brace_end + 1])
-        except json.JSONDecodeError:
-            pass
-
-    return None
+    # Dead code removed — all validators now use parse_utils.parse_validator_json()
