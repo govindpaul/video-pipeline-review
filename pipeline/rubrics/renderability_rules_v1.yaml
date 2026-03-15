@@ -1,0 +1,72 @@
+# Renderability Rules v1
+# Negative ruleset derived from real pipeline failures (stories 179-181)
+# Used by: concept selection, scene breakdown, and storyboard validity check
+version: 1
+
+# --- Concept-level rejection rules ---
+concept_rejection:
+  - id: CR01
+    rule: "No concepts requiring progressive object counting across scenes (e.g., 1 bear → 2 bears → 3 bears)"
+    reason: "Text-to-image models cannot reliably generate exact object counts"
+    source: "Story 180 — all 5 scenes were identical because the model can't count bears"
+
+  - id: CR02
+    rule: "No concepts where the entire story depends on inside-container/inside-object POV"
+    reason: "Looking up from inside a violin case, box, or container is not in training data"
+    source: "Story 181 — all 6 scenes defaulted to standard portraits"
+
+  - id: CR03
+    rule: "No concepts where 4+ scenes differ only by tiny hand/finger/object position changes"
+    reason: "Still images cannot distinguish 'hand 2 inches higher' from 'hand at same position'"
+    source: "Stories 180 and 181 — nearly identical prompts produced identical images"
+
+  - id: CR04
+    rule: "No concepts where the payoff depends on a tiny prop (< 15cm) carrying the entire visual story"
+    reason: "Small objects get lost in 704x1248 images. Key story objects must be large and central."
+    source: "Story 181 — 10cm origami paper never appeared in any image"
+
+  - id: CR05
+    rule: "No concepts that work only as continuous motion (filling, pouring, stacking, assembling)"
+    reason: "Each scene is generated as an independent still image. No state carries between scenes."
+    source: "Story 180 — stacking progression requires state memory the pipeline doesn't have"
+
+# --- Scene-level rejection rules ---
+scene_rejection:
+  - id: SR01
+    rule: "Every scene image prompt must contain the key visible evidence for that scene"
+    reason: "If the important object/action only appears in the video prompt, the image won't show it"
+    source: "Story 179 scenes 3-4 — bottle only described in video prompt, absent from images"
+
+  - id: SR02
+    rule: "Adjacent scenes must be visually distinguishable as still photographs"
+    reason: "Two scenes with the same subject, same angle, same setting = two identical images"
+    source: "Stories 180 and 181 — most scenes were indistinguishable"
+
+  - id: SR03
+    rule: "Each scene must introduce new visual information visible in a still frame"
+    reason: "Motion-only differences (hand moves slightly) don't show in still images"
+    source: "Story 181 — scenes 2-5 differed only by hand position"
+
+  - id: SR04
+    rule: "Camera angles must be standard and renderable: eye-level, low angle, high angle, close-up, wide"
+    reason: "POV from inside objects, extreme worm's-eye, or through-aperture views fail"
+    source: "Story 181 — inside-case POV was never achieved"
+
+  - id: SR05
+    rule: "Image prompts must be under 400 characters. Front-load the subject, not the environment."
+    reason: "800+ char prompts bury the key subject in DNA boilerplate. Model loses focus."
+    source: "All 3 stories — prompts were 700-900 chars with identical DNA blocks repeated"
+
+# --- Seed fidelity rules ---
+seed_fidelity:
+  - id: SF01
+    rule: "If user provides a seed, the core hook must be preserved in the selected concept"
+    example: "Seed: 'book keeps returning to shelf' → concept must include a book returning, not just 'book exists'"
+
+  - id: SF02
+    rule: "If the seed describes a relationship or repeated event, the concept must preserve that structure"
+    example: "Seed: 'same commuter leaves origami tips' → concept must show recognition/pattern, not single anonymous drop"
+
+  - id: SF03
+    rule: "Do not replace the seed's emotional core with a 'satisfying video' format"
+    example: "Seed about mystery/coincidence should not become a stacking/overflow concept"

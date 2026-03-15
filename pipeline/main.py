@@ -44,7 +44,7 @@ import yaml
 
 from pipeline.state import PipelineState, State
 from pipeline.llm import local as llm
-from pipeline.story.creator import conceive, write_story
+from pipeline.story.creator_v2 import conceive, write_story
 from pipeline.story.parser import parse_story, expand_dna
 from pipeline.story.gates import gate_check
 from pipeline.validators.scene import validate_scenes
@@ -192,6 +192,18 @@ def run_new(concept_seed: str = None, story_only: bool = False):
                 )
 
         log.info(f"Scene validation: {scene_result.state.value}")
+
+        # =================================================================
+        # Stage 4.5: STORYBOARD VALIDITY CHECK (deterministic)
+        # Catches unrenderable patterns before any generation
+        # =================================================================
+        from pipeline.validators.storyboard import check_storyboard
+        sb_state, sb_issues = check_storyboard(story)
+        if sb_state == ValidationState.FAIL:
+            log.warning(f"Storyboard check FAILED: {sb_issues}")
+            # Advisory — log issues but proceed. Story rewrite happens at scene level.
+            for issue in sb_issues[:5]:
+                log.warning(f"  STORYBOARD: {issue}")
 
         # =================================================================
         # Stage 5: VALIDATE PROMPTS (deterministic + LLM semantic)
