@@ -265,18 +265,20 @@ def run_new(concept_seed: str = None, story_only: bool = False):
                         f"{sem_result.state.value} (confidence={sem_result.confidence:.2f})"
                     )
 
-                    if sem_result.state == ValidationState.FAIL:
+                    if sem_result.state != ValidationState.PASS:
                         log.warning(
                             f"Scene {scene.number}: Replacement REJECTED "
-                            f"(semantic: {sem_result.issues[:2]}). Keeping original."
+                            f"(semantic {sem_result.state.value}: "
+                            f"{sem_result.issues[:2] if sem_result.issues else 'no details'}). "
+                            f"Keeping original."
                         )
                         continue
 
-                    # Both passed — accept replacement
+                    # ONLY accept if BOTH are explicitly PASS
                     scene.image_prompt = candidate
                     log.info(
                         f"Scene {scene.number}: Replacement accepted "
-                        f"(deterministic PASS + semantic {sem_result.state.value})"
+                        f"(deterministic PASS + semantic PASS)"
                     )
 
             # Log final prompt state (advisory, not blocking)

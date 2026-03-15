@@ -89,15 +89,15 @@ def test_acceptance_full_pipeline():
     with patch("pipeline.validators.prompt.validate_prompt") as mock_validate:
         mock_validate.return_value = mock_sem_result
 
-        # Simulate the acceptance logic from main.py
+        # Simulate the acceptance logic from main.py (v2: require PASS, not just !FAIL)
         accepted = False
         if det_state == ValidationState.PASS:
             sem_result = mock_validate(test_scene, story, {})
-            if sem_result.state != ValidationState.FAIL:
+            if sem_result.state == ValidationState.PASS:
                 story.scenes[0].image_prompt = replacement
                 accepted = True
 
-    assert accepted, "Should be accepted after both validations pass"
+    assert accepted, "Should be accepted after both validations PASS"
     assert story.scenes[0].image_prompt == replacement, "Prompt should be the replacement"
     assert story.scenes[0].image_prompt != original_prompt, "Should differ from original"
     print(f"  Semantic: {mock_sem_result.state.value}")
@@ -149,11 +149,11 @@ def test_rejection_semantic_fail():
 
             accepted = False
             sem_result = mock_validate(test_scene, story, {})
-            if sem_result.state != ValidationState.FAIL:
+            if sem_result.state == ValidationState.PASS:
                 story.scenes[0].image_prompt = replacement
                 accepted = True
 
-        assert not accepted, "Should NOT be accepted when semantic fails"
+        assert not accepted, "Should NOT be accepted when semantic FAILs"
         assert story.scenes[0].image_prompt == original_prompt, "Original must be preserved"
         print(f"  Semantic: {mock_sem_result.state.value} (issues: {mock_sem_result.issues})")
         print(f"  Accepted: {accepted}")
@@ -164,6 +164,58 @@ def test_rejection_semantic_fail():
         print(f"  Rejected at deterministic stage (motion verb caught)")
         print(f"  Prompt unchanged: {story.scenes[0].image_prompt[:60]}...")
 
+    print("  PASSED\n")
+
+
+def _test_rejection_for_state(state: ValidationState, state_name: str):
+    """Helper: replacement rejected when semantic returns given state."""
+    story = make_story()
+    original_prompt = story.scenes[0].image_prompt
+
+    # Valid pipe-format replacement that passes deterministic
+    replacement = (
+        "Subject: male, 30, brown hair, blue eyes, jacket no text no logos | "
+        "Pose: standing upright, face tilted down | "
+        "Camera: medium shot, 50mm, f/2.8 | "
+        "Environment: LOC_DNA city street, concrete sidewalk, brick buildings | "
+        "Lighting: warm streetlamp from left | "
+        "Mood: contemplative, photograph"
+    )
+
+    test_scene = Scene(number=1, title="Scene 1", image_prompt=replacement, video_prompt="He walks.")
+    det_state, _ = check_prompt_deterministic(test_scene, story)
+    assert det_state == ValidationState.PASS, "Deterministic must PASS for this test"
+
+    mock_result = PromptValidation(scene_num=1, state=state, confidence=0.5)
+
+    with patch("pipeline.validators.prompt.validate_prompt") as mock_validate:
+        mock_validate.return_value = mock_result
+
+        accepted = False
+        sem_result = mock_validate(test_scene, story, {})
+        if sem_result.state == ValidationState.PASS:
+            story.scenes[0].image_prompt = replacement
+            accepted = True
+
+    assert not accepted, f"Must NOT accept when semantic is {state_name}"
+    assert story.scenes[0].image_prompt == original_prompt, "Original must be preserved"
+    print(f"  Deterministic: PASS")
+    print(f"  Semantic: {state_name}")
+    print(f"  Accepted: {accepted}")
+    print(f"  Prompt unchanged: yes")
+
+
+def test_rejection_semantic_inconclusive():
+    """TEST: Replacement rejected when semantic returns INCONCLUSIVE."""
+    print("=== TEST: Replacement rejected (semantic INCONCLUSIVE) ===")
+    _test_rejection_for_state(ValidationState.INCONCLUSIVE, "INCONCLUSIVE")
+    print("  PASSED\n")
+
+
+def test_rejection_semantic_validator_error():
+    """TEST: Replacement rejected when semantic returns VALIDATOR_ERROR."""
+    print("=== TEST: Replacement rejected (semantic VALIDATOR_ERROR) ===")
+    _test_rejection_for_state(ValidationState.VALIDATOR_ERROR, "VALIDATOR_ERROR")
     print("  PASSED\n")
 
 
@@ -233,9 +285,26 @@ if __name__ == "__main__":
 
     test_acceptance_full_pipeline()
     test_rejection_semantic_fail()
+    test_rejection_semantic_inconclusive()
+    test_rejection_semantic_validator_error()
     test_fix_notes_never_assigned()
     test_resume_uses_same_validators()
 
-    print("=" * 50)
-    print("ALL PROMPT REPAIR TESTS PASSED")
+    # Verify the acceptance logic in actual code matches
+    import inspect
+    from pipeline import main
+    source = inspect.getsource(main.run_new)
+    assert "sem_result.state != ValidationState.PASS" in source, \
+        "main.py must reject anything except PASS"
+    print("\n=== CODE INSPECTION ===")
+    print("  main.py acceptance rule: != PASS → reject (confirmed)")
+
+    from pipeline.image import challenger
+    chall_source = inspect.getsource(challenger.run_challenges)
+    assert "sem_result.state != ValidationState.PASS" in chall_source, \
+        "challenger.py must reject anything except PASS"
+    print("  challenger.py acceptance rule: != PASS → reject (confirmed)")
+
+    print("\n" + "=" * 50)
+    print("ALL PROMPT REPAIR TESTS PASSED (6 tests)")
     print("=" * 50)

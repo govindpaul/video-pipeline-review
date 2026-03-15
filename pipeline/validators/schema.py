@@ -1,10 +1,17 @@
 """
 Validation schemas for the layered validation pipeline.
+Schema version: 2 (acceptance rule tightened)
 
 All validators return structured dataclasses with explicit states.
 Parse failure is VALIDATOR_ERROR, never FAIL.
 VALIDATOR_ERROR and INCONCLUSIVE keep the current artifact.
 Only FAIL triggers repair at the appropriate abstraction layer.
+
+Acceptance rule (v2): replacement prompts require semantic PASS.
+  - PASS → accept
+  - FAIL → reject, keep original
+  - INCONCLUSIVE → reject, keep original
+  - VALIDATOR_ERROR → reject, keep original
 """
 
 from dataclasses import dataclass, field

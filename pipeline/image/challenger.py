@@ -118,16 +118,18 @@ def run_challenges(
                 new_prompt = original_prompt
             else:
                 sem_result = _validate_prompt(test_scene, story, config)
-                if sem_result.state == ValidationState.FAIL:
+                if sem_result.state != ValidationState.PASS:
                     log.warning(
-                        f"Scene {scene_num}: Rewritten prompt failed semantic: "
-                        f"{sem_result.issues[:2]}. Using original."
+                        f"Scene {scene_num}: Rewritten prompt rejected "
+                        f"(semantic {sem_result.state.value}: "
+                        f"{sem_result.issues[:2] if sem_result.issues else 'no details'}). "
+                        f"Using original."
                     )
                     new_prompt = original_prompt
                 else:
                     log.info(
                         f"Scene {scene_num}: Rewritten prompt accepted "
-                        f"(deterministic PASS + semantic {sem_result.state.value})"
+                        f"(deterministic PASS + semantic PASS)"
                     )
 
             challenger_filename = f"scene_{scene_num:02d}_v{new_version_num}.png"
