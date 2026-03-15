@@ -100,6 +100,21 @@ def run_challenges(
                 original_prompt=original_prompt,
             )
 
+            # Revalidate rewritten prompt before using it for generation
+            from pipeline.validators.deterministic import check_prompt_deterministic
+            from pipeline.story.parser import Scene as _Scene
+            test_scene = _Scene(
+                number=scene_num, title=scene.title,
+                image_prompt=new_prompt, video_prompt=scene.video_prompt,
+            )
+            det_state, det_issues = check_prompt_deterministic(test_scene, story)
+            if det_state != ValidationState.PASS:
+                log.warning(
+                    f"Scene {scene_num}: Rewritten prompt failed deterministic checks: "
+                    f"{det_issues[:2]}. Using original prompt instead."
+                )
+                new_prompt = original_prompt
+
             challenger_filename = f"scene_{scene_num:02d}_v{new_version_num}.png"
             challenger_path = images_dir / challenger_filename
 
@@ -275,7 +290,15 @@ def _generate_challenger(
 ) -> bool:
     """Generate a single challenger image."""
     import sys
-    sys.path.insert(0, "/home/bbnlabs5/video_gen_web")
+    _comfyui_parent = str(Path(__file__).resolve().parent.parent.parent)
+    try:
+        import yaml as _yaml
+        with open(Path(_comfyui_parent) / "config.yaml") as _f:
+            _cfg = _yaml.safe_load(_f)
+        _wf_dir = str(Path(_cfg["paths"]["comfyui_dir"]).parent)
+    except Exception:
+        _wf_dir = "/home/bbnlabs5/video_gen_web"
+    sys.path.insert(0, _wf_dir)
     from workflows.qwen_image import build_workflow as build_qwen_image_workflow
 
     img_cfg = config["models"]["image"]

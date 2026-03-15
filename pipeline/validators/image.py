@@ -92,7 +92,11 @@ def validate_image(
             format_json=False,  # Don't use Ollama JSON mode — conflicts with thinking
         )
 
-        data = _parse_json(response)
+        from pipeline.validators.parse_utils import parse_validator_json
+        data = parse_validator_json(response, expected_fields=[
+            "state", "matches_prompt", "characters_present", "setting_correct",
+            "score", "findings", "confidence",
+        ])
         if data is None:
             log.warning(
                 f"Scene {scene.number}: image validator PARSE FAILURE — "

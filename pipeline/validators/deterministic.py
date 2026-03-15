@@ -205,10 +205,16 @@ def check_image_duplicates(
     images: list[Path],
     threshold: float = 0.95,
 ) -> list[tuple[int, int]]:
-    """Detect near-duplicate scene images by comparing file hashes.
+    """Detect IDENTICAL or byte-level-similar scene images via file hash.
 
-    Uses file size + partial content hash as a fast proxy for similarity.
-    Returns list of (scene_a, scene_b) pairs that are suspected duplicates.
+    This is NOT visual near-duplicate detection. It only catches:
+    - Identical files (same bytes)
+    - Trivially similar files (same partial hash)
+
+    For true visual similarity detection, a perceptual hash or
+    embedding-based comparison would be needed (not implemented).
+
+    Returns list of (scene_a, scene_b) pairs that are byte-level duplicates.
     """
     duplicates = []
 

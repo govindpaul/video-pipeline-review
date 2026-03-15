@@ -31,7 +31,7 @@ def load_config():
 def test_deterministic_scene():
     """Test scene-level deterministic checks."""
     print("=== Deterministic Scene Checks ===")
-    story = parse_story("stories/story-173-the-alignment.md")
+    story = parse_story("stories/story-176-the-color-echo.md")
     config = load_config()
 
     state, issues = check_scenes_deterministic(story, config)
@@ -44,7 +44,7 @@ def test_deterministic_scene():
 def test_deterministic_prompt():
     """Test prompt-level deterministic checks."""
     print("\n=== Deterministic Prompt Checks ===")
-    story = parse_story("stories/story-173-the-alignment.md")
+    story = parse_story("stories/story-176-the-color-echo.md")
 
     for scene in story.scenes:
         state, issues = check_prompt_deterministic(scene, story)
@@ -55,7 +55,7 @@ def test_deterministic_prompt():
 def test_deterministic_image():
     """Test image-level deterministic checks."""
     print("\n=== Deterministic Image Checks ===")
-    images_dir = Path("stories/output/173/images")
+    images_dir = Path("stories/output/176/images")
 
     if not images_dir.exists():
         print("  SKIPPED — no images directory")
@@ -69,7 +69,7 @@ def test_deterministic_image():
 def test_duplicate_detection():
     """Test duplicate image detection."""
     print("\n=== Duplicate Detection ===")
-    images_dir = Path("stories/output/173/images")
+    images_dir = Path("stories/output/176/images")
 
     if not images_dir.exists():
         print("  SKIPPED — no images directory")

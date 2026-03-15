@@ -73,7 +73,11 @@ prompt_template: |
 
   For each criterion, answer: PASS or FAIL with a brief reason.
   Then give an overall state: PASS (all critical criteria pass) or FAIL (any critical criterion fails).
-  If FAIL, suggest a specific fix.
+  If FAIL, provide:
+  - fix_notes: advisory description of what to change (prose)
+  - replacement_prompt: a COMPLETE rewritten prompt in valid pipe-separated format
+    (Subject: ... | Pose: ... | Camera: ... | Environment: ... | Lighting: ... | Mood: ..., photograph)
+    Only provide replacement_prompt if you can write a complete valid prompt. Otherwise leave it empty.
   Rate your confidence 0.0-1.0.
 
   Output JSON:
@@ -89,6 +93,7 @@ prompt_template: |
     "not_overloaded": true/false,
     "prompt_clarity": "clear or overloaded or vague or contradictory",
     "issues": ["list of specific problems"],
-    "suggested_fix": "specific rewrite suggestion or empty string",
+    "fix_notes": "advisory description of what to change",
+    "replacement_prompt": "COMPLETE pipe-format prompt or empty string",
     "confidence": 0.85
   }}

@@ -75,7 +75,11 @@ def validate_scenes(story: StoryData, config: dict) -> SceneValidation:
             max_tokens=8192,  # Qwen3.5 uses ~2-4k tokens for <think>, needs room for JSON
         )
 
-        data = _parse_json(response)
+        from pipeline.validators.parse_utils import parse_validator_json
+        data = parse_validator_json(response, expected_fields=[
+            "state", "hook_present", "payoff_present", "confidence",
+            "silent_understandable", "pacing", "issues",
+        ])
         if data is None:
             log.warning("Scene validator: could not parse LLM response")
             return SceneValidation(
@@ -85,7 +89,14 @@ def validate_scenes(story: StoryData, config: dict) -> SceneValidation:
             )
 
         state_str = data.get("state", "").upper()
-        state = ValidationState.PASS if state_str == "PASS" else ValidationState.FAIL
+        if state_str == "PASS":
+            state = ValidationState.PASS
+        elif state_str == "FAIL":
+            state = ValidationState.FAIL
+        elif state_str == "INCONCLUSIVE":
+            state = ValidationState.INCONCLUSIVE
+        else:
+            state = ValidationState.INCONCLUSIVE  # Unknown state → benefit of doubt
 
         result = SceneValidation(
             state=state,

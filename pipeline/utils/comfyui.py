@@ -19,7 +19,19 @@ import requests
 
 log = logging.getLogger(__name__)
 
-COMFYUI_DIR = Path("/home/bbnlabs5/video_gen_web/comfyui")
+import yaml as _yaml
+
+def _load_comfyui_dir() -> Path:
+    """Load ComfyUI directory from config.yaml, with fallback."""
+    try:
+        config_path = Path(__file__).resolve().parent.parent.parent / "config.yaml"
+        with open(config_path) as f:
+            cfg = _yaml.safe_load(f)
+        return Path(cfg.get("paths", {}).get("comfyui_dir", "/home/bbnlabs5/video_gen_web/comfyui"))
+    except Exception:
+        return Path("/home/bbnlabs5/video_gen_web/comfyui")
+
+COMFYUI_DIR = _load_comfyui_dir()
 COMFYUI_PORT = 8199
 COMFYUI_URL = f"http://localhost:{COMFYUI_PORT}"
 
@@ -63,7 +75,7 @@ def start(mode: str = "video", timeout: int = 90) -> bool:
         return False
 
     flags = MODE_FLAGS.get(mode, MODE_FLAGS["video"])
-    log_file = Path("/home/bbnlabs5/video-pipeline/stories/comfyui.log")
+    log_file = Path(__file__).resolve().parent.parent.parent / "stories" / "comfyui.log"
     log_file.parent.mkdir(parents=True, exist_ok=True)
 
     cmd = (

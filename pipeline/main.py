@@ -62,7 +62,7 @@ from pipeline.utils.files import upload_to_nextcloud
 
 log = logging.getLogger("pipeline")
 
-BASE_DIR = Path("/home/bbnlabs5/video-pipeline")
+BASE_DIR = Path(__file__).resolve().parent.parent  # Two levels up from pipeline/main.py
 
 
 def load_config() -> dict:
@@ -186,8 +186,10 @@ def run_new(concept_seed: str = None, story_only: bool = False):
                     break
 
             if scene_result.state == ValidationState.FAIL:
-                log.warning("Scene validation still failing — proceeding with best effort")
-                # Don't halt — proceed with what we have
+                log.warning(
+                    "Scene validation still failing — proceeding with best effort. "
+                    "Scene/prompt validators are ADVISORY quality layers, not hard gates."
+                )
 
         log.info(f"Scene validation: {scene_result.state.value}")
 
@@ -204,6 +206,7 @@ def run_new(concept_seed: str = None, story_only: bool = False):
         prompt_results = validate_all_prompts(story, config)
 
         # Rewrite failing prompts (prompt-level repair, not story-level)
+        # Only FAIL triggers repair. INCONCLUSIVE/VALIDATOR_ERROR → keep prompt.
         failed_prompts = [
             r for r in prompt_results if r.state == ValidationState.FAIL
         ]
@@ -216,23 +219,44 @@ def run_new(concept_seed: str = None, story_only: bool = False):
                 if not scene:
                     continue
 
-                if pr.suggested_fix:
-                    # Use the validator's suggested fix
-                    log.info(
-                        f"Scene {scene.number}: Applying suggested fix: "
-                        f"{pr.suggested_fix[:80]}..."
-                    )
-                    scene.image_prompt = pr.suggested_fix
+                candidate = None
+
+                # Option 1: Use replacement_prompt if validator provided a complete one
+                if pr.replacement_prompt:
+                    candidate = pr.replacement_prompt
+                    log.info(f"Scene {scene.number}: Validator provided replacement prompt")
                 else:
-                    # Ask LLM for a rewrite
-                    log.info(f"Scene {scene.number}: LLM rewriting prompt...")
-                    rewritten = rewrite_prompt(
+                    # Option 2: LLM blind rewrite from original
+                    log.info(
+                        f"Scene {scene.number}: LLM rewriting prompt "
+                        f"(fix notes: {pr.fix_notes[:60]}...)" if pr.fix_notes
+                        else f"Scene {scene.number}: LLM rewriting prompt"
+                    )
+                    candidate = rewrite_prompt(
                         scene, None, None, config,
                         original_prompt=original_prompts[scene.number],
                     )
-                    scene.image_prompt = rewritten
 
-            # Re-validate rewritten prompts
+                # Validate candidate passes deterministic checks before accepting
+                if candidate:
+                    from pipeline.validators.deterministic import check_prompt_deterministic
+                    from pipeline.story.parser import Scene as _Scene
+                    test_scene = _Scene(
+                        number=scene.number, title=scene.title,
+                        image_prompt=candidate, video_prompt=scene.video_prompt,
+                    )
+                    det_state, det_issues = check_prompt_deterministic(test_scene, story)
+                    if det_state == ValidationState.PASS:
+                        scene.image_prompt = candidate
+                        log.info(f"Scene {scene.number}: Replacement prompt accepted (passes deterministic checks)")
+                    else:
+                        log.warning(
+                            f"Scene {scene.number}: Replacement prompt REJECTED "
+                            f"(failed deterministic: {det_issues[:2]}). Keeping original."
+                        )
+                        # Keep original — do NOT assign broken prompt
+
+            # Log final prompt state (advisory, not blocking)
             prompt_results = validate_all_prompts(story, config)
             still_failing = sum(
                 1 for r in prompt_results if r.state == ValidationState.FAIL
@@ -240,7 +264,7 @@ def run_new(concept_seed: str = None, story_only: bool = False):
             if still_failing:
                 log.warning(
                     f"{still_failing} prompts still failing after rewrite — "
-                    f"proceeding with best effort"
+                    f"proceeding with best effort (advisory, not blocking)"
                 )
 
         if story_only:

@@ -21,8 +21,16 @@ from pipeline.utils import comfyui
 
 log = logging.getLogger(__name__)
 
-# Import Qwen-Image workflow from video_gen_web
-sys.path.insert(0, "/home/bbnlabs5/video_gen_web")
+# Import Qwen-Image workflow from the ComfyUI parent directory (video_gen_web)
+_comfyui_parent = str(Path(__file__).resolve().parent.parent.parent)
+try:
+    import yaml as _yaml
+    with open(Path(_comfyui_parent) / "config.yaml") as _f:
+        _cfg = _yaml.safe_load(_f)
+    _workflow_dir = str(Path(_cfg["paths"]["comfyui_dir"]).parent)
+except Exception:
+    _workflow_dir = "/home/bbnlabs5/video_gen_web"
+sys.path.insert(0, _workflow_dir)
 from workflows.qwen_image import build_workflow as build_qwen_image_workflow
 
 # VRAM floor disabled — with --normalvram, ComfyUI cycles models between VRAM

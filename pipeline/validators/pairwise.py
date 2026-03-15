@@ -108,7 +108,11 @@ def compare_images(
         # Strip thinking tags
         response = re.sub(r"<think>.*?</think>", "", response, flags=re.DOTALL).strip()
 
-        data = _parse_json(response)
+        from pipeline.validators.parse_utils import parse_validator_json
+        data = parse_validator_json(response, expected_fields=[
+            "winner", "prompt_adherence", "scene_intent",
+            "story_continuity", "visual_readability", "reason", "confidence",
+        ])
         if data is None:
             log.warning(
                 f"Scene {scene.number}: pairwise judge PARSE FAILURE — "

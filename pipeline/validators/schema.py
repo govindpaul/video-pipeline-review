@@ -78,7 +78,8 @@ class PromptValidation:
     # Details
     prompt_clarity: str = "clear"         # "clear"|"overloaded"|"vague"|"contradictory"
     issues: list[str] = field(default_factory=list)
-    suggested_fix: str = ""
+    fix_notes: str = ""                   # Advisory prose (NOT a replacement prompt)
+    replacement_prompt: str = ""          # Full valid pipe-format prompt (if provided)
 
     # Confidence + debugging
     confidence: float = 0.0

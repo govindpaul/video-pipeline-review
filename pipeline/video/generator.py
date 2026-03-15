@@ -19,7 +19,8 @@ from pipeline.utils import comfyui
 log = logging.getLogger(__name__)
 
 # Import LTX-2.3 workflow from benchmarks
-sys.path.insert(0, "/home/bbnlabs5/video-pipeline/tests/benchmarks/video_models/workflows")
+_base = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(_base / "tests" / "benchmarks" / "video_models" / "workflows"))
 from ltx23_i2v_twostage_v2 import build_workflow as build_ltx_workflow
 
 

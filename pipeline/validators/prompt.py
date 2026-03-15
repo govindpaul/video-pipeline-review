@@ -83,7 +83,12 @@ def validate_prompt(
             max_tokens=8192,  # Qwen3.5 uses ~2-4k tokens for <think>, needs room for JSON
         )
 
-        data = _parse_json(response)
+        from pipeline.validators.parse_utils import parse_validator_json
+        data = parse_validator_json(response, expected_fields=[
+            "state", "matches_story_beat", "character_dna_present",
+            "describes_opening_frame", "no_contradictions", "prompt_clarity",
+            "issues", "fix_notes", "replacement_prompt", "confidence",
+        ])
         if data is None:
             log.warning(f"Scene {scene.number}: prompt validator parse failure")
             return PromptValidation(
@@ -94,7 +99,14 @@ def validate_prompt(
             )
 
         state_str = data.get("state", "").upper()
-        state = ValidationState.PASS if state_str == "PASS" else ValidationState.FAIL
+        if state_str == "PASS":
+            state = ValidationState.PASS
+        elif state_str == "FAIL":
+            state = ValidationState.FAIL
+        elif state_str == "INCONCLUSIVE":
+            state = ValidationState.INCONCLUSIVE
+        else:
+            state = ValidationState.INCONCLUSIVE  # Unknown state → benefit of doubt
 
         result = PromptValidation(
             scene_num=scene.number,
@@ -109,7 +121,8 @@ def validate_prompt(
             not_overloaded=data.get("not_overloaded", True),
             prompt_clarity=data.get("prompt_clarity", "clear"),
             issues=data.get("issues", []),
-            suggested_fix=data.get("suggested_fix", ""),
+            fix_notes=data.get("fix_notes", data.get("suggested_fix", "")),
+            replacement_prompt=data.get("replacement_prompt", ""),
             confidence=data.get("confidence", 0.0),
             raw_response=response[:1000],
         )
